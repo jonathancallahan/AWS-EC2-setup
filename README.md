@@ -29,29 +29,30 @@ had to use any of these features so I generally just click Review and Launch at 
 6. AWS will bring up a confirmation screen and just click Launch.
 7. AWS will ask if you want to use an existing public-key cryptography key pair or create a new key
    pair. In this case you will want to create a new key pair and then
-download the <span style="background-color: #edeef0">`*.pem`</span> file you have just named and created.
+download the `*.pem` file you have just named and created.
 8. AWS will now launch your instance - this takes a few minutes and you
    can observe the status at the EC2 dashboard (click on View Instances).
 
-***
-***
-
 9. Once your instance is ready, you can log in with the following
-   command <span style="background-color: #edeef0">`$ ssh -i <your EC2 pem file> ubuntu@<IPv4 Public IP>`</span>.
+   command `$ ssh -i <your EC2 pem file> ubuntu@<IPv4 Public IP>`.
     - If you get an error about an unprotected private key file, change the permissions on your key file:
-    <span style="background-color: #edeef0">`$ chmod 600 <your EC2 pem file>`</span> and it should work.
+    `$ chmod 600 <your EC2 pem file>` and it should work.
 10. You should be sucessfully logged in at this point. Hooray!
 11. At this point you will want to update your instance and install what
-    ever software you want. Start by running <span style="background-color: #edeef0">`$ sudo apt-get update && sudo
-    apt-get upgrade`</span>.
-12. I got tired of trying to remember all the software libraries and dependencies I needed to install so I
-    made a little setup shell script which I keep in my [dotfiles](https://github.com/stedy/dotfiles/blob/master/ec2_setup.sh).
-13. You are now ready to work get to work on your EC2 instance. A few notes:
+    ever software you want. Start by running `$ sudo apt-get update && sudo
+    apt-get upgrade`.
+12. Install make, vim and git by hand with `apt-get --yes install make vim git`
+13. Get Makefiles and use `make` to install core software:
+    * `git clone https://github.com/jonathancallahan/AWS-EC2-setup`
+    * `cd AWS-ECT-setup`
+    * `make -f  Makefile.ubuntu16.04x64 core`
+14. See the Makefile for additional targets.
+15. You are now ready to work get to work on your EC2 instance. A few notes:
     - For file transfer you can use standard SFTP similarly to how you
-      logged in: <span style="background-color: #edeef0">`$ sftp -i <your EC2 pem file> ubuntu@<IPv4 Public IP>`</span>.
+      logged in: `$ sftp -i <your EC2 pem file> ubuntu@<IPv4 Public IP>`.
     - Should you need to use [S3 file storage](https://aws.amazon.com/s3/) I would suggest using
       [s3cmd](https://github.com/s3tools/s3cmd), a command line utility for working with S3 objects.
-14. When you are finished, go back to the dashboard and be sure to
+16. When you are finished, go back to the dashboard and be sure to
     Terminate your session. Also best to delete your SSH keys as well.
 
 
