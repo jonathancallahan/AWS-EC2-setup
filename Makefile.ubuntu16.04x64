@@ -1,0 +1,57 @@
+# AWS Makefile for Ubuntu-16.04-x64
+#
+# Targets for installation of software on AWS instances.
+#
+# Software includes the bare minimum to test R compilation of the 'seismic'
+# and 'MazamaSpatialUtils' packages developed by Mazama Science.
+
+
+all: core ###documentation
+	# Get and compile R packages
+	echo "Get package source code via svn or git."
+	echo "R CMD build YOUR_FLAGS YOUR_PACKAGE"
+	echo "R CMD check YOUR_FLAGS YOUR_PACKAGE.VERSION.tar.gz"
+	echo "R CMD INSTALL YOUR_PACKAGE.VERSION.tar.gz"
+
+# Core system assets and libraries
+core:
+	# Set git editor to vim
+	echo "export GIT_EDITOR=vim" >> ~/.bashrc
+	export GIT_EDITOR=vim
+
+	# Add R to Ubuntu keyring (https://www.digitalocean.com/community/tutorials/how-to-install-r-on-ubuntu-16-04-2)
+	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+	sudo apt-get update
+
+	# # Install system libraries needed to compile R packages
+	sudo apt-get --yes install libcairo2-dev
+	sudo apt-get --yes --allow-unauthenticated install r-cran-xml # unauthenticated package
+	sudo apt-get --yes install libxml2-dev
+	sudo apt-get --yes install libssl-dev
+	sudo apt-get --yes install libcurl4-gnutls-dev
+
+	# Install R
+	sudo apt-get --yes --allow-unauthenticated install r-base r-base-dev # unauthenticated package
+
+	# Install common packages
+	sudo /usr/bin/Rscript -e "install.packages(pkgs=c('devtools'), repos=c('http://cran.rstudio.com'))"
+	sudo /usr/bin/Rscript -e "install.packages(pkgs=c('tidyverse'), repos=c('http://cran.rstudio.com'))"
+
+# Libraries and packages needed to compile package documentation
+documentation:
+	# Install system libraries
+	sudo apt-get --yes install texlive texinfo
+	sudo apt-get --yes install qpdf
+	sudo /usr/bin/Rscript -e "install.packages(pkgs=c('knitr'), repos=c('http://cran.rstudio.com'))"
+
+# Libraries and packages needed to compile the 'MazamaSpatialUtils' package
+MazamaSpatialUtils:
+	# Install system libraries
+	sudo apt-get --yes install libgdal1-dev gdal-bin
+	sudo apt-get --yes install libgeos-c1v5 libgeos-dev
+	sudo apt-get --yes install libproj0 libproj-dev proj-bin proj-data
+	# Install R packages
+	# TODO:  Figure out how to solve: "error: proj_api.h not found in standard or given locations"
+	###sudo /usr/bin/Rscript -e "install.packages(pkgs=c('sp','rgdal','rgeos','maptools'), repos='http://cran.rstudio.com/')"
+	sudo /usr/bin/Rscript -e "install.packages(pkgs=c('testthat'), repos=c('http://cran.rstudio.com/'))"
+
