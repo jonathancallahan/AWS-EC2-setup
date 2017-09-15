@@ -32,7 +32,6 @@ had to use any of these features so I generally just click Review and Launch at 
 download the `*.pem` file you have just named and created.
 8. AWS will now launch your instance - this takes a few minutes and you
    can observe the status at the EC2 dashboard (click on View Instances).
-
 9. Once your instance is ready, you can log in with the following
    command `$ ssh -i <your EC2 pem file> ubuntu@<IPv4 Public IP>`.
     - If you get an error about an unprotected private key file, change the permissions on your key file:
@@ -41,11 +40,11 @@ download the `*.pem` file you have just named and created.
 11. At this point you will want to update your instance and install what
     ever software you want. Start by running `$ sudo apt-get update && sudo
     apt-get upgrade`.
-12. Install make, vim and git by hand with `apt-get --yes install make vim git`
+12. Install make, vim and git by hand with `sudo apt-get --yes install make vim git`
 13. Get Makefiles and use `make` to install core software:
-    * `git clone https://github.com/jonathancallahan/AWS-EC2-setup`
-    * `cd AWS-ECT-setup`
-    * `make -f  Makefile.ubuntu16.04x64 core`
+    * `sudo git clone https://github.com/jonathancallahan/AWS-EC2-setup`
+    * `cd AWS-EC2-setup`
+    * `sudo make -f  Makefile.ubuntu16.04x64 core`
 14. See the Makefile for additional targets.
 15. You are now ready to work get to work on your EC2 instance. A few notes:
     - For file transfer you can use standard SFTP similarly to how you
