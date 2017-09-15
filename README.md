@@ -43,7 +43,7 @@ download the `*.pem` file you have just named and created.
 12. Install make, vim and git by hand with `sudo apt-get --yes install make vim git`
 13. Get Makefiles and use `make` to install core software:
     * `sudo git clone https://github.com/jonathancallahan/AWS-EC2-setup`
-    * `cd AWS-ECT-setup`
+    * `cd AWS-EC2-setup`
     * `sudo make -f  Makefile.ubuntu16.04x64 core`
 14. See the Makefile for additional targets.
 15. You are now ready to work get to work on your EC2 instance. A few notes:
