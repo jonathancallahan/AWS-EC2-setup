@@ -42,6 +42,7 @@ documentation:
 	# Install system libraries
 	sudo apt-get --yes install texlive texinfo
 	sudo apt-get --yes install qpdf
+	# Install R packages
 	sudo /usr/bin/Rscript -e "install.packages(pkgs=c('knitr'), repos=c('http://cran.rstudio.com'))"
 
 # Libraries and packages needed to compile the 'MazamaSpatialUtils' package
@@ -55,3 +56,9 @@ MazamaSpatialUtils:
 	###sudo /usr/bin/Rscript -e "install.packages(pkgs=c('sp','rgdal','rgeos','maptools'), repos='http://cran.rstudio.com/')"
 	sudo /usr/bin/Rscript -e "install.packages(pkgs=c('testthat'), repos=c('http://cran.rstudio.com/'))"
 
+# Libraries and packages needed to install a "jug" app version of a databrowser
+jug:
+	# Install system libraries
+	# Install R packages
+	sudo /usr/bin/Rscript -e "devtools::install_github('mazamascience/jug')"
+	sudo /usr/bin/Rscript -e "devtools::install_github('mazamascience/MazamaWebUtils')"
